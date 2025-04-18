@@ -4,12 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Barakallahu Fi Umrik, Norlatipah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: #1a1a1a;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffd1dc;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #2b1e34, #3a1e4a);
+      font-family: 'Cormorant Garamond', serif;
+      color: #f8e1e9;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -17,68 +23,110 @@
       height: 100vh;
       flex-direction: column;
     }
-    h1 {
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: #fff;
+
+    .container {
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+      z-index: 2;
+      transform: translateY(20px);
     }
-    .glow-text {
-      font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 4px;
+
+    .container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1 {
+      font-family: 'Parisienne', cursive;
+      font-size: 3.5rem;
       color: #fff;
-      position: relative;
-      display: inline-block;
-      background: linear-gradient(to left, #ff7eb9, #ff65a3, #ff3c83, #e84393);
-      background-size: 200% auto;
+      text-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+      margin-bottom: 1rem;
+    }
+
+    .glow-text {
+      font-family: 'Parisienne', cursive;
+      font-size: 4rem;
+      color: #fff;
+      background: linear-gradient(45deg, #ff6b81, #ff8c94, #d85d7f);
+      background-size: 200%;
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: shine 3s linear infinite;
+      animation: shine 4s ease-in-out infinite;
+      text-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
     }
 
     @keyframes shine {
-      0% {
-        background-position: 200% center;
-      }
-      100% {
-        background-position: 0% center;
+      0% { background-position: 0% 50%; }
+      50% { background-position: 200% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 0.5rem auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
     button {
-      background-color: #ff69b4;
-      color: white;
+      background: linear-gradient(45deg, #ff6b81, #ff8c94);
       border: none;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border-radius: 10px;
+      padding: 1rem 2.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: #fff;
+      border-radius: 25px;
       cursor: pointer;
-      transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-top: 2rem;
     }
+
     button:hover {
-      background-color: #ff85c1;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
     }
+
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
+      z-index: 1;
+      filter: blur(1px);
     }
+
+    #bloomCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
     .hidden {
       display: none;
-    }
-    p {
-      max-width: 80%;
-      line-height: 1.6;
-      text-align: center;
     }
   </style>
 </head>
 <body>
-  <canvas id="flowerCanvas"></canvas>
-  <div class="container" id="page1">
+  <canvas id="petalCanvas"></canvas>
+  <canvas id="bloomCanvas"></canvas>
+  <div class="container show" id="page1">
     <h1>Barakallahu Fi Umrik</h1>
     <div class="glow-text">Norlatipah</div>
     <button onclick="bukaSurat()">Buka Pesan</button>
@@ -86,84 +134,223 @@
 
   <div class="container hidden" id="page2">
     <h1>Untukmu, Norlatipah 🌸</h1>
-    <p>
-      Barakallahu fi umrik di tanggal 19 April 2025 ini. Semoga Allah selalu memberkahi usiamu dan menjagamu dalam kebaikan.
-    </p>
-    <p>
-      Semoga langkah-langkahmu selalu dalam ridha-Nya, dan hatimu selalu dipenuhi ketenangan dan keikhlasan.
-    </p>
-    <p>
-      Terima kasih karena telah menjadi pribadi yang menginspirasi dalam diam. Semoga Allah mempertemukan kita dalam hal-hal yang baik dan benar. Amin.
-    </p>
+    <p>Barakallahu fi umrik di tanggal 19 April 2025 ini. Semoga Allah selalu memberkahi usiamu dan menjagamu dalam kebaikan.</p>
+    <p>Semoga langkah-langkahmu selalu dalam ridha-Nya, dan hatimu selalu dipenuhi ketenangan dan keikhlasan.</p>
+    <p>Terima kasih karena telah menjadi pribadi yang menginspirasi dalam diam. Semoga Allah mempertemukan kita dalam hal-hal yang baik dan benar. Amin.</p>
   </div>
 
   <script>
-    const canvas = document.getElementById("flowerCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Canvas untuk kelopak latar belakang
+    const petalCanvas = document.getElementById("petalCanvas");
+    const petalCtx = petalCanvas.getContext("2d");
+    petalCanvas.width = window.innerWidth;
+    petalCanvas.height = window.innerHeight;
 
-    let flowers = [];
+    // Canvas untuk animasi bunga plum mekar
+    const bloomCanvas = document.getElementById("bloomCanvas");
+    const bloomCtx = bloomCanvas.getContext("2d");
+    bloomCanvas.width = window.innerWidth;
+    bloomCanvas.height = window.innerHeight;
+
+    let petals = [];
+    let plumPetals = [];
+    let sparkles = [];
 
     function random(min, max) {
       return Math.random() * (max - min) + min;
     }
 
-    class Flower {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.radius = 0;
-        this.maxRadius = random(10, 30);
-        this.growth = random(0.5, 1.5);
-        this.opacity = 1;
-        this.color = `hsl(${random(300, 360)}, 80%, 70%)`;
+    // Kelopak latar belakang (bunga plum)
+    class Petal {
+      constructor() {
+        this.x = random(0, petalCanvas.width);
+        this.y = random(-100, 0);
+        this.size = random(8, 14);
+        this.speedY = random(1.2, 2.2);
+        this.speedX = random(-0.6, 0.6);
+        this.angle = random(0, Math.PI * 2);
+        this.spin = random(-0.04, 0.04);
+        this.opacity = random(0.7, 1);
+        this.color = `hsl(${random(340, 350)}, 70%, 80%)`; // Pink/merah plum
+        this.wind = 0;
       }
+
       update() {
-        if (this.radius < this.maxRadius) {
-          this.radius += this.growth;
-        } else {
-          this.opacity -= 0.02;
+        this.wind = Math.sin(Date.now() * 0.001) * 0.6;
+        this.y += this.speedY;
+        this.x += this.speedX + this.wind;
+        this.angle += this.spin;
+        this.opacity -= 0.001;
+        if (this.y > petalCanvas.height || this.opacity <= 0) {
+          this.y = random(-100, 0);
+          this.x = random(0, petalCanvas.width);
+          this.opacity = random(0.7, 1);
+          this.speedY = random(1.2, 2.2);
         }
       }
+
       draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.opacity;
-        ctx.fill();
-        ctx.globalAlpha = 1;
+        petalCtx.save();
+        petalCtx.translate(this.x, this.y);
+        petalCtx.rotate(this.angle);
+        petalCtx.beginPath();
+        // Bentuk kelopak plum (lebih bulat)
+        petalCtx.arc(0, 0, this.size, 0, Math.PI * 2);
+        petalCtx.fillStyle = this.color;
+        petalCtx.globalAlpha = this.opacity;
+        petalCtx.fill();
+        petalCtx.restore();
+      }
+    }
+
+    // Kelopak untuk animasi bunga plum mekar
+    class PlumPetal {
+      constructor(index) {
+        this.x = bloomCanvas.width / 2;
+        this.y = bloomCanvas.height / 2;
+        this.size = 0;
+        this.maxSize = random(12, 18);
+        this.angle = (index / 10) * Math.PI * 2 + random(-0.2, 0.2); // Pola spiral
+        this.radius = 0;
+        this.maxRadius = random(60, 120);
+        this.speed = random(1.8, 2.8);
+        this.opacity = 1;
+        this.rotation = 0;
+        this.rotationSpeed = random(-0.04, 0.04);
+        this.color = `hsl(${random(340, 350)}, 75%, 85%)`; // Pink/merah plum lembut
+        this.phase = 'grow';
+      }
+
+      update() {
+        if (this.phase === 'grow') {
+          this.size += 0.6;
+          this.radius += this.speed;
+          this.rotation += this.rotationSpeed;
+          this.angle += 0.02; // Rotasi spiral
+          this.x = bloomCanvas.width / 2 + Math.cos(this.angle) * this.radius;
+          this.y = bloomCanvas.height / 2 + Math.sin(this.angle) * this.radius;
+          if (this.radius >= this.maxRadius) {
+            this.phase = 'fade';
+          }
+        } else if (this.phase === 'fade') {
+          this.opacity -= 0.008;
+          this.y += 1.2;
+          this.x += Math.sin(this.rotation) * 0.6;
+          this.rotation += this.rotationSpeed;
+        }
+      }
+
+      draw() {
+        bloomCtx.save();
+        bloomCtx.translate(this.x, this.y);
+        bloomCtx.rotate(this.rotation);
+        bloomCtx.beginPath();
+        // Bentuk kelopak plum (bulat dengan tepi lembut)
+        bloomCtx.arc(0, 0, this.size, 0, Math.PI * 2);
+        bloomCtx.fillStyle = this.color;
+        bloomCtx.globalAlpha = this.opacity;
+        bloomCtx.fill();
+        bloomCtx.restore();
+      }
+    }
+
+    // Partikel kilau
+    class Sparkle {
+      constructor() {
+        this.x = bloomCanvas.width / 2;
+        this.y = bloomCanvas.height / 2;
+        this.size = random(2, 6);
+        this.speedX = random(-2.5, 2.5);
+        this.speedY = random(-2.5, 2.5);
+        this.opacity = 1;
+        this.color = `hsl(340, 80%, 95%)`;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.opacity -= 0.015;
+      }
+
+      draw() {
+        bloomCtx.save();
+        bloomCtx.beginPath();
+        bloomCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        bloomCtx.fillStyle = this.color;
+        bloomCtx.globalAlpha = this.opacity;
+        bloomCtx.fill();
+        bloomCtx.restore();
+      }
+    }
+
+    function initPetals() {
+      for (let i = 0; i < 60; i++) {
+        petals.push(new Petal());
+      }
+    }
+
+    function startPlumBloom() {
+      plumPetals = [];
+      sparkles = [];
+      for (let i = 0; i < 10; i++) {
+        plumPetals.push(new PlumPetal(i));
+      }
+      for (let i = 0; i < 10; i++) {
+        sparkles.push(new Sparkle());
       }
     }
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      flowers.forEach((flower, index) => {
-        flower.update();
-        flower.draw();
-        if (flower.opacity <= 0) flowers.splice(index, 1);
+      petalCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+      bloomCtx.clearRect(0, 0, bloomCanvas.width, bloomCanvas.height);
+
+      // Animasi kelopak latar belakang
+      petals.forEach(petal => {
+        petal.update();
+        petal.draw();
       });
+
+      // Animasi kelopak bunga plum mekar
+      plumPetals.forEach((petal, index) => {
+        petal.update();
+        petal.draw();
+        if (petal.opacity <= 0) {
+          plumPetals.splice(index, 1);
+        }
+      });
+
+      // Animasi kilau
+      sparkles.forEach((sparkle, index) => {
+        sparkle.update();
+        sparkle.draw();
+        if (sparkle.opacity <= 0) {
+          sparkles.splice(index, 1);
+        }
+      });
+
       requestAnimationFrame(animate);
     }
 
-    function startFlowers() {
-      for (let i = 0; i < 70; i++) {
-        const x = random(0, canvas.width);
-        const y = random(0, canvas.height);
-        flowers.push(new Flower(x, y));
-      }
-    }
-
     function bukaSurat() {
-      document.getElementById('page1').classList.add('hidden');
-      document.getElementById('page2').classList.remove('hidden');
-      startFlowers();
+      const page1 = document.getElementById('page1');
+      const page2 = document.getElementById('page2');
+      page1.classList.remove('show');
+      startPlumBloom();
+      setTimeout(() => {
+        page1.classList.add('hidden');
+        page2.classList.remove('hidden');
+        setTimeout(() => page2.classList.add('show'), 200);
+      }, 1800); // Sinkron dengan durasi animasi
     }
 
+    initPetals();
     animate();
+
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      petalCanvas.width = window.innerWidth;
+      petalCanvas.height = window.innerHeight;
+      bloomCanvas.width = window.innerWidth;
+      bloomCanvas.height = window.innerHeight;
     });
   </script>
 </body>
